@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PDF Editor - Chỉnh sửa file PDF trực tuyến miễn phí. Thêm văn bản, hình ảnh và chú thích vào PDF của bạn." />
+  <title>PDF Editor - Chỉnh Sửa PDF Trực Tuyến</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script type="module" crossorigin src="/assets/index-DVoXa6yC.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-Jim3-qLR.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header id="app-header">
+      <div class="header-left">
+        <div class="logo">
+          <i class="fas fa-file-pdf"></i>
+          <span>PDF Editor</span>
+        </div>
+      </div>
+      <div class="header-center" id="file-name-display" style="display:none;">
+        <i class="fas fa-file-alt"></i>
+        <span id="current-file-name">document.pdf</span>
+      </div>
+      <div class="header-right" id="header-actions" style="display:none;">
+        <button id="btn-save" class="btn-primary" title="Lưu file PDF">
+          <i class="fas fa-download"></i>
+          <span>Lưu PDF</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Upload Screen -->
+    <div id="upload-screen">
+      <div class="upload-container">
+        <div class="upload-hero">
+          <div class="upload-icon-wrapper">
+            <div class="upload-icon-bg"></div>
+            <i class="fas fa-cloud-upload-alt"></i>
+          </div>
+          <h1>Chỉnh Sửa PDF Trực Tuyến</h1>
+          <p class="upload-subtitle">Tải lên file PDF để xem, chỉnh sửa và thêm nội dung mới</p>
+        </div>
+        <div id="drop-zone" class="drop-zone">
+          <div class="drop-zone-content">
+            <div class="drop-icon">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <p class="drop-text">Kéo & thả file PDF vào đây</p>
+            <p class="drop-divider">hoặc</p>
+            <label for="file-input" class="btn-upload">
+              <i class="fas fa-folder-open"></i>
+              Chọn file từ máy tính
+            </label>
+            <input type="file" id="file-input" accept="application/pdf" hidden />
+            <p class="drop-hint">Hỗ trợ file .pdf — Tối đa 100MB</p>
+          </div>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-eye"></i></div>
+            <h3>Xem PDF</h3>
+            <p>Xem trước nội dung file PDF rõ ràng</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-pen"></i></div>
+            <h3>Thêm Văn Bản</h3>
+            <p>Chèn chữ vào bất kỳ vị trí nào</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-shapes"></i></div>
+            <h3>Vẽ Hình</h3>
+            <p>Vẽ tự do và thêm hình dạng</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-save"></i></div>
+            <h3>Lưu PDF</h3>
+            <p>Xuất file PDF đã chỉnh sửa</p>
+          </div>
+        </div>
+        <div class="upload-footer">
+          <i class="fas fa-heart"></i> Made by Nguyễn Phi Hùng - Zalo 0938750424
+        </div>
+      </div>
+    </div>
+
+    <!-- Editor Screen -->
+    <div id="editor-screen" style="display:none;">
+      <!-- Toolbar -->
+      <div id="toolbar">
+        <div class="toolbar-group">
+          <button id="btn-back" class="toolbar-btn" title="Quay lại">
+            <i class="fas fa-arrow-left"></i>
+          </button>
+        </div>
+        <div class="toolbar-divider"></div>
+        <div class="toolbar-group">
+          <button id="btn-select" class="toolbar-btn active" title="Chọn / Di chuyển" data-tool="select">
+            <i class="fas fa-mouse-pointer"></i>
+            <span>Chọn</span>
+          </button>
+          <button id="btn-text" class="toolbar-btn" title="Thêm văn bản" data-tool="text">
+            <i class="fas fa-font"></i>
+            <span>Văn bản</span>
+          </button>
+          <button id="btn-draw" class="toolbar-btn" title="Vẽ tự do" data-tool="draw">
+            <i class="fas fa-pencil-alt"></i>
+            <span>Bút vẽ</span>
+          </button>
+          <button id="btn-highlight" class="toolbar-btn" title="Tô sáng" data-tool="highlight">
+            <i class="fas fa-highlighter"></i>
+            <span>Tô sáng</span>
+          </button>
+          <button id="btn-rect" class="toolbar-btn" title="Hình chữ nhật" data-tool="rect">
+            <i class="far fa-square"></i>
+            <span>Hình CN</span>
+          </button>
+          <button id="btn-eraser" class="toolbar-btn" title="Xoá vùng (Whiteout)" data-tool="eraser">
+            <i class="fas fa-eraser"></i>
+            <span>Xoá</span>
+          </button>
+          <button id="btn-cut" class="toolbar-btn" title="Cắt vùng di chuyển" data-tool="cut">
+            <i class="fas fa-cut"></i>
+            <span>Cắt</span>
+          </button>
+          <button id="btn-erase-stamp" class="toolbar-btn" title="Xoá mộc đỏ (Giữ chữ ký)" data-tool="erase-stamp">
+            <i class="fas fa-stamp"></i>
+            <span>Xoá mộc</span>
+          </button>
+          <button id="btn-image" class="toolbar-btn" title="Chèn ảnh" data-tool="image">
+            <i class="fas fa-image"></i>
+            <span>Ảnh</span>
+          </button>
+        </div>
+        <div class="toolbar-divider"></div>
+        <!-- Text Options (visible in both 'Chọn' and 'Văn bản' modes) -->
+        <div class="toolbar-group" id="text-options" style="display:flex;">
+          <select id="font-family" class="toolbar-select" title="Phông chữ" style="width: 140px; margin-right: 5px;">
+            <option value="Arial, Helvetica, sans-serif" selected>Arial</option>
+            <option value="'Times New Roman', Times, serif">Times New Roman</option>
+            <option value="'Courier New', Courier, monospace">Courier New</option>
+            <option value="Georgia, serif">Georgia</option>
+            <option value="Verdana, Geneva, sans-serif">Verdana</option>
+            <option value="Tahoma, Geneva, sans-serif">Tahoma</option>
+          </select>
+          <input type="number" id="font-size" class="toolbar-select" title="Cỡ chữ (px)" style="width: 60px;"
+            value="14" min="1" max="200" step="1" />
+          <button id="btn-bold" class="toolbar-btn" title="In đậm">
+            <i class="fas fa-bold"></i>
+          </button>
+          <button id="btn-italic" class="toolbar-btn" title="In nghiêng">
+            <i class="fas fa-italic"></i>
+          </button>
+        </div>
+        <!-- Draw Options -->
+        <div class="toolbar-group" id="draw-options" style="display:none;">
+          <label class="toolbar-label">Độ dày:</label>
+          <input type="range" id="stroke-width" min="1" max="20" value="3" class="toolbar-range" />
+          <span id="stroke-width-value" class="toolbar-value">3px</span>
+        </div>
+        <div class="toolbar-group">
+          <label class="toolbar-label">Màu:</label>
+          <input type="color" id="color-picker" value="#e53e3e" class="toolbar-color" title="Chọn màu" />
+        </div>
+        <div class="toolbar-divider"></div>
+        <div class="toolbar-group">
+          <button id="btn-undo" class="toolbar-btn" title="Hoàn tác (Ctrl+Z)">
+            <i class="fas fa-undo"></i>
+          </button>
+          <button id="btn-redo" class="toolbar-btn" title="Làm lại (Ctrl+Y)">
+            <i class="fas fa-redo"></i>
+          </button>
+          <button id="btn-delete" class="toolbar-btn" title="Xóa đối tượng đã chọn" style="display:none;">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Editor Area -->
+      <div id="editor-area">
+        <!-- Page Navigation Sidebar -->
+        <div id="page-sidebar">
+          <div class="sidebar-header">
+            <span>Trang</span>
+          </div>
+          <div id="page-thumbnails"></div>
+          <div class="sidebar-footer">
+            Made by Nguyễn Phi Hùng<br/>Zalo 0938750424
+          </div>
+        </div>
+
+        <!-- Main Canvas Area -->
+        <div id="canvas-container">
+          <div id="pages-wrapper">
+            <!-- Pages will be rendered here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Zoom Controls -->
+      <div id="zoom-controls">
+        <button id="btn-zoom-out" class="zoom-btn" title="Thu nhỏ">
+          <i class="fas fa-minus"></i>
+        </button>
+        <span id="zoom-level">100%</span>
+        <button id="btn-zoom-in" class="zoom-btn" title="Phóng to">
+          <i class="fas fa-plus"></i>
+        </button>
+        <button id="btn-zoom-fit" class="zoom-btn" title="Vừa màn hình">
+          <i class="fas fa-expand"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" style="display:none;">
+      <div class="loading-content">
+        <div class="loading-spinner"></div>
+        <p id="loading-text">Đang tải...</p>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- Hidden file input for images -->
+    <input type="file" id="image-input" accept="image/*" hidden />
+  </div>
+
+</body>
+</html>
